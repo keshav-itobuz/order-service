@@ -1,11 +1,21 @@
-import env from '../env.js';
-import { initNats } from './nats.js';
-import app from './server.js';
+import app from './server';
+import { startGrpcServer } from './grpcServer';
 
-const PORT = env.PORT;
+const PORT = process.env.PORT || 3000;
 
-await initNats();
+const start = async () => {
+  try {
+    // Start gRPC server
+    await startGrpcServer();
 
-app.listen(PORT, () => {
-  console.log(`Order service running on port ${PORT}`);
-});
+    // Start Express server
+    app.listen(PORT, () => {
+      console.log(`REST API Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Error starting servers:', error);
+    process.exit(1);
+  }
+};
+
+start();
