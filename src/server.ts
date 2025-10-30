@@ -6,6 +6,6 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/orders', orderRoutes);
+app.use('/', orderRoutes);
 
 export default app;

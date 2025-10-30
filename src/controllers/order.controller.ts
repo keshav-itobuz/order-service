@@ -73,6 +73,7 @@ class OrderController {
 
   listOrders = async (req: Request, res: Response) => {
     try {
+      console.log('jiiiiii');
       const { customerId, page = 1, limit = 10 } = req.body;
       const skip = (page - 1) * limit;
 
